@@ -87,7 +87,7 @@ function App() {
 
 					<h5>
 						The wind is coming from the {getCardinalDirection(data.wind.deg)} at
-						a speed of {Math.round(data.wind.speed)} m/s
+						{Math.round(data.wind.speed)} m/s
 					</h5>
 				</div>
 			) : (
