@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Background from "./components/Background";
+import SunnySkyBackground from "./components/SunSkyBackground";
 
 function App() {
 	const [data, setData] = useState(null);
@@ -79,31 +79,32 @@ function App() {
 
 	return (
 		<>
-			<Background />
-			{data ? (
-				<div>
-					<img
-						src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-						alt={data.weather[0].description}
-					/>
-					<h2>{data.name}</h2>
-					<h1>{Math.round(data.main.temp)}°C</h1>
-					<h5>Feels like {Math.floor(data.main.feels_like)}°C</h5>
+			<SunnySkyBackground>
+				{data ? (
+					<div>
+						<img
+							src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+							alt={data.weather[0].description}
+						/>
+						<h2>{data.name}</h2>
+						<h1>{Math.round(data.main.temp)}°C</h1>
+						<h5>Feels like {Math.floor(data.main.feels_like)}°C</h5>
 
-					<h3>{data.weather[0].description}</h3>
+						<h3>{data.weather[0].description}</h3>
 
-					<h5>
-						{Math.round(data.wind.speed) == 0 && "There is no wind"}
-						{Math.round(data.wind.speed) > 0 &&
-							`The wind is coming from the ${getCardinalDirection(
-								data.wind.deg
-							)} at
+						<h5>
+							{Math.round(data.wind.speed) == 0 && "There is no wind"}
+							{Math.round(data.wind.speed) > 0 &&
+								`The wind is coming from the ${getCardinalDirection(
+									data.wind.deg
+								)} at
               ${Math.round(data.wind.speed)} m/s `}
-					</h5>
-				</div>
-			) : (
-				<h5>Data Loading...</h5>
-			)}
+						</h5>
+					</div>
+				) : (
+					<h5>Data Loading...</h5>
+				)}
+			</SunnySkyBackground>
 		</>
 	);
 }
