@@ -13,8 +13,19 @@
   background: linear-gradient(45deg, #ffa16bd2, #b973ff);
   backdrop-filter: blur(10px);
 }
-h1, h2, h3,h4,h5 {
-  margin: 0.5rem 0;
+h3,h4 {
+  margin: 1.5rem 0;
   padding: 0.25rem;
 }
 
+h2, h5{
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-weight: 200;
+  font-size: 4.2em;
+}

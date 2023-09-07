@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-
-// https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,cloudcover,windspeed_180m
+import Background from "./components/Background";
 
 function App() {
 	const [data, setData] = useState(null);
@@ -61,10 +60,17 @@ function App() {
 			);
 			const data = await response.json();
 			setData(data);
-			console.info(position.coords);
 		} catch (error) {
 			setError(error);
 		}
+	}
+
+	async function fetchPlaceImg() {
+		const position = await new Promise((resolve, reject) => {
+			navigator.geolocation.getCurrentPosition(resolve, reject);
+		});
+
+		const { latitude, longitude } = position.coords;
 	}
 
 	useEffect(() => {
@@ -73,6 +79,7 @@ function App() {
 
 	return (
 		<>
+			<Background />
 			{data ? (
 				<div>
 					<img
@@ -86,12 +93,16 @@ function App() {
 					<h3>{data.weather[0].description}</h3>
 
 					<h5>
-						The wind is coming from the {getCardinalDirection(data.wind.deg)} at
-						{Math.round(data.wind.speed)} m/s
+						{Math.round(data.wind.speed) == 0 && "There is no wind"}
+						{Math.round(data.wind.speed) > 0 &&
+							`The wind is coming from the ${getCardinalDirection(
+								data.wind.deg
+							)} at
+              ${Math.round(data.wind.speed)} m/s `}
 					</h5>
 				</div>
 			) : (
-				<h2>Loading data...</h2>
+				<h5>Data Loading...</h5>
 			)}
 		</>
 	);
