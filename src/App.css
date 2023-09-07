@@ -3,13 +3,10 @@
   height: 100vh;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  
   color: #353535;
   text-align: center;
-  background: linear-gradient(135deg, #FFC3A0, #FFECB3, #C3A0FF);
+
   backdrop-filter: blur(10px);
 }
 
@@ -31,12 +28,4 @@ h1 {
   padding: 0;
   font-weight: 200;
   font-size: 4.2em;
-}
-
-/* Styles for the SunnySkyBackground component */
-.sunny-sky {
-  background: linear-gradient(45deg, rgba(114,192,223,1) 78%, rgba(255,233,107,1) 100%); 
-  transition: background 1s ease; /* Add a smooth transition effect */
-  width: 100%;
-  height: 100vh;
 }
