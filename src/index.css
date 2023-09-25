@@ -65,3 +65,38 @@ button:focus-visible {
     
   }
 }
+
+/* Styling for box component */
+
+.flex {
+  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.humid {
+  margin-top: 0;
+  flex-direction: column;
+}
+
+.humid > h2 {
+  margin-top: 1rem;
+}
+
+.box {
+  height: 6rem;
+  aspect-ratio: 1;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+  /* filter: blur(5px); */
+  border-radius: 10%;
+  background-color: rgba(26, 26, 26, 0.5);
+  color:#dbdbdb;
+}
+
+.smallText{
+  line-height: 1.2rem;
+  font-weight: 700;
+}
+

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Box from "./components/Box";
+import { Icon } from "@iconify/react";
 import "./App.css";
 
 function App() {
@@ -44,13 +46,13 @@ function App() {
 		}
 	}
 
-	async function fetchPlaceImg() {
-		const position = await new Promise((resolve, reject) => {
-			navigator.geolocation.getCurrentPosition(resolve, reject);
-		});
+	// async function fetchPlaceImg() {
+	// 	const position = await new Promise((resolve, reject) => {
+	// 		navigator.geolocation.getCurrentPosition(resolve, reject);
+	// 	});
 
-		const { latitude, longitude } = position.coords;
-	}
+	// 	const { latitude, longitude } = position.coords;
+	// }
 
 	useEffect(() => {
 		fetchData();
@@ -72,7 +74,7 @@ function App() {
 
 	const locationBasedUnit = (celcius) => {
 		if (data.sys.country == "US") {
-			return celcius * 1.8 + 32;
+			return Math.floor(celcius * 1.8 + 32);
 		} else {
 			return celcius;
 		}
@@ -106,15 +108,28 @@ function App() {
 					</h5>
 
 					<h3>{data.weather[0].description}</h3>
-
-					<h5>
-						{Math.round(data.wind.speed) == 0 && "There is no wind"}
-						{Math.round(data.wind.speed) > 0 &&
-							`The wind is coming from the ${getCardinalDirection(
-								data.wind.deg
-							)} at
-            ${Math.round(data.wind.speed)} m/s `}
-					</h5>
+					<div className="flex">
+						<Box>
+							<div style={{ transform: `rotate(${data.wind.deg + 180}deg)` }}>
+								<Icon icon="mingcute:arrow-up-fill" width="50%" />
+							</div>
+							<div className="smallText">
+								{`${getCardinalDirection(data.wind.deg)} at
+            ${Math.round(data.wind.speed)} m/s`}
+							</div>
+						</Box>
+						<Box>
+							<div className="flex humid">
+								<h2>{`${data.main.humidity}%`}</h2>
+								<div className="smallText">Humidity</div>
+							</div>
+						</Box>
+						<Box>
+							<div className="flex humid">
+								<h2>{`${data.main.pressure} \n hPa`}</h2>
+							</div>
+						</Box>
+					</div>
 				</div>
 			) : (
 				<h5 style={backgroundStyle}>Data Loading...</h5>

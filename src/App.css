@@ -21,11 +21,3 @@ h2, h5 {
   margin: 0;
   padding: 0;
 }
-
-/* Styling for the main temperature heading */
-h1 {
-  margin: 0;
-  padding: 0;
-  font-weight: 200;
-  font-size: 4.2em;
-}
