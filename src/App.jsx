@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Box from "./components/Box";
 import { Icon } from "@iconify/react";
+import arrowUpFill from "@iconify/icons-mingcute/arrow-up-fill";
 import "./App.css";
 
 function App() {
@@ -111,7 +112,7 @@ function App() {
 					<div className="flex">
 						<Box>
 							<div style={{ transform: `rotate(${data.wind.deg + 180}deg)` }}>
-								<Icon icon="mingcute:arrow-up-fill" width="50%" />
+								<Icon icon={arrowUpFill} width="50%" />
 							</div>
 							<div className="smallText">
 								{`${getCardinalDirection(data.wind.deg)} at
