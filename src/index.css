@@ -66,7 +66,15 @@ button:focus-visible {
   }
 }
 
-/* Styling for box component */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1vw;
+  height: 1vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 .flex {
   margin-top: 5vh;

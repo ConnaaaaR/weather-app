@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Box from "./components/Box";
 import { Icon } from "@iconify/react";
 import arrowUpFill from "@iconify/icons-mingcute/arrow-up-fill";
@@ -6,8 +7,8 @@ import "./App.css";
 
 function App() {
 	const [data, setData] = useState(null);
-	const [error, setError] = useState(null);
-	const [isSunny, setIsSunny] = useState(false);
+	const [imageUrl, setImageUrl] = useState("");
+
 	const getCardinalDirection = (degree) => {
 		const directions = [
 			"north",
@@ -29,75 +30,76 @@ function App() {
 		return directions[index];
 	};
 
-	async function fetchData() {
+	const fetchLocationPhoto = async (lat, lon) => {
+		try {
+			const options = {
+				method: "GET",
+				url: `http://localhost:8000/location?lat=${lat}&lon=${lon}`,
+			};
+			await axios.request(options).then((response) => {
+				console.log(response);
+				setImageUrl(response.data.url);
+			});
+		} catch {
+			console.error("error fetching location photo");
+		}
+		fetchData(lat, lon);
+	};
+
+	async function fetchData(latitude, longitude) {
+		try {
+			const options = {
+				method: "GET",
+				url: `http://localhost:8000/weather?lat=${latitude}&lon=${longitude}`,
+			};
+
+			axios.request(options).then((response) => {
+				setData(response.data);
+			});
+			console.log("Weather Fetched!");
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	const fetchDataAndLocationPhoto = async () => {
 		try {
 			const position = await new Promise((resolve, reject) => {
 				navigator.geolocation.getCurrentPosition(resolve, reject);
 			});
-
 			const { latitude, longitude } = position.coords;
-			const apiKey = "70fad9c302c80c4cc388150f0be6cdf0";
-			const response = await fetch(
-				`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
-			);
-			const data = await response.json();
-			setData(data);
-		} catch (error) {
-			setError(error);
+			fetchLocationPhoto(latitude, longitude);
+		} catch {
+			console.error("shits broken yo");
 		}
-	}
-
-	// async function fetchPlaceImg() {
-	// 	const position = await new Promise((resolve, reject) => {
-	// 		navigator.geolocation.getCurrentPosition(resolve, reject);
-	// 	});
-
-	// 	const { latitude, longitude } = position.coords;
-	// }
+	};
 
 	useEffect(() => {
-		fetchData();
-		setIsSunny(isDaytime());
-
-		const interval = setInterval(() => {
-			setIsSunny(isDaytime());
-		}, 60000);
-
-		return () => clearInterval(interval);
+		fetchDataAndLocationPhoto();
 	}, []);
 
-	// Function to check if it's daytime
-	const isDaytime = () => {
-		const currentTime = new Date();
-		const currentHour = currentTime.getHours();
-		return currentHour >= 9 && currentHour < 17;
-	};
-
-	const locationBasedUnit = (celcius) => {
-		if (data.sys.country == "US") {
-			return Math.floor(celcius * 1.8 + 32);
+	const locationBasedUnit = (celsius) => {
+		if (data && data.sys && data.sys.country === "US") {
+			return Math.floor(celsius * 1.8 + 32);
 		} else {
-			return celcius;
+			return celsius;
 		}
-	};
-
-	const daytimeGradient =
-		"linear-gradient(45deg, rgba(114,192,223,1) 78%, rgba(255,233,107,1) 100%)";
-	const nighttimeGradient =
-		"linear-gradient(135deg, #FFC3A0, #FFECB3, #C3A0FF)";
-
-	const backgroundStyle = {
-		background: isSunny ? daytimeGradient : nighttimeGradient,
-		transition: "background 1s ease",
-		width: "100%",
-		height: "100vh",
-		margin: "0 auto",
 	};
 
 	return (
 		<>
 			{data ? (
-				<div style={backgroundStyle}>
+				<div
+					style={{
+						backgroundImage: `url(${imageUrl})`,
+						backgroundSize: "cover",
+						backgroundRepeat: "no-repeat",
+						width: "100%",
+						height: "100vh",
+						margin: "0 auto",
+						transition: "background 1s ease",
+					}}
+				>
 					<img
 						src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
 						alt={data.weather[0].description}
@@ -107,17 +109,15 @@ function App() {
 					<h5>
 						Feels like {locationBasedUnit(Math.floor(data.main.feels_like))}°
 					</h5>
-
 					<h3>{data.weather[0].description}</h3>
 					<div className="flex">
 						<Box>
 							<div style={{ transform: `rotate(${data.wind.deg + 180}deg)` }}>
 								<Icon icon={arrowUpFill} width="50%" />
 							</div>
-							<div className="smallText">
-								{`${getCardinalDirection(data.wind.deg)} at
-            ${Math.round(data.wind.speed)} m/s`}
-							</div>
+							<div className="smallText">{`${getCardinalDirection(
+								data.wind.deg
+							)} at ${Math.round(data.wind.speed)} m/s`}</div>
 						</Box>
 						<Box>
 							<div className="flex humid">
@@ -133,7 +133,7 @@ function App() {
 					</div>
 				</div>
 			) : (
-				<h5 style={backgroundStyle}>Data Loading...</h5>
+				<h5>Data Loading...</h5>
 			)}
 		</>
 	);
