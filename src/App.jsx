@@ -21,10 +21,10 @@ function App() {
 			"north west",
 		];
 
-		// Ensure the degree is positive and within the range [0, 360)
+		// Make sure degree is positive and between 0 - 360
 		const normalizedDegree = ((degree % 360) + 360) % 360;
 
-		// Calculate the index into the directions array
+		// Convert normalized degrees into array index
 		const index = Math.floor((normalizedDegree + 22.5) / 45);
 
 		return directions[index];
@@ -37,13 +37,11 @@ function App() {
 				url: `http://localhost:8000/location?lat=${lat}&lon=${lon}`,
 			};
 			await axios.request(options).then((response) => {
-				console.log(response);
 				setImageUrl(response.data.url);
 			});
 		} catch {
 			console.error("error fetching location photo");
 		}
-		fetchData(lat, lon);
 	};
 
 	async function fetchData(latitude, longitude) {
@@ -52,11 +50,9 @@ function App() {
 				method: "GET",
 				url: `http://localhost:8000/weather?lat=${latitude}&lon=${longitude}`,
 			};
-
 			axios.request(options).then((response) => {
 				setData(response.data);
 			});
-			console.log("Weather Fetched!");
 		} catch (error) {
 			console.error(error);
 		}
@@ -64,13 +60,21 @@ function App() {
 
 	const fetchDataAndLocationPhoto = async () => {
 		try {
+			// Get the current geolocation
 			const position = await new Promise((resolve, reject) => {
 				navigator.geolocation.getCurrentPosition(resolve, reject);
 			});
+
+			// Get Lat and Lon from geolocation
 			const { latitude, longitude } = position.coords;
-			fetchLocationPhoto(latitude, longitude);
-		} catch {
-			console.error("shits broken yo");
+
+			// Fetch location photo and data concurrently
+			await Promise.all([
+				fetchLocationPhoto(latitude, longitude),
+				fetchData(latitude, longitude),
+			]);
+		} catch (error) {
+			console.error("An error occurred:", error);
 		}
 	};
 
