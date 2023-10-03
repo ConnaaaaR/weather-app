@@ -17,7 +17,7 @@ h1 {
 /* Common styles for headings */
 h3,
 h4 {
-	color: #191919;
+	color: #1a1a1a;
 	text-align: center;
 	font-family: Lexend-Deca;
 	font-size: 0.75rem;
@@ -33,7 +33,7 @@ h2 {
 	font-family: "Lexend-Zetta";
 	font-size: 1.8rem;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 600;
 	line-height: normal;
 }
 
