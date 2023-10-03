@@ -108,11 +108,6 @@ function App() {
 							{locationBasedUnit(Math.round(data.main.temp))}
 						</h1>
 						<Box data={data} color={color} />
-						<h5 style={color}>
-							Feels like {locationBasedUnit(Math.floor(data.main.feels_like))}
-						</h5>
-
-						<h3 style={color}>{data.weather[0].description}</h3>
 					</div>
 				</div>
 			) : (
