@@ -35,12 +35,12 @@ const Box = (props) => {
 				<div className="box">
 					<div className="boxItem">
 						<img src="/icons/ph_wind.svg" alt="wind icon" />
-						<h2 className="h2-placeholder"></h2>
+						<h2 className="data-placeholder">&#160;&#160;</h2>
 						<h3>Wind</h3>
 					</div>
 					<div className="boxItem">
 						<img src="/icons/iwwa_humidity.svg" alt="humidity icon" />
-						<h2 className="h2-placeholder"></h2>
+						<h2 className="data-placeholder">&#160;&#160;</h2>
 						<h3>Humidity</h3>
 					</div>
 					<div className="boxItem">
@@ -48,7 +48,7 @@ const Box = (props) => {
 							src="/icons/material-symbols_visibility-outline.svg"
 							alt="wind icon"
 						/>
-						<h2 className="h2-placeholder"></h2>
+						<h2 className="data-placeholder">&#160;&#160;</h2>
 						<h3>Visibility</h3>
 					</div>
 
