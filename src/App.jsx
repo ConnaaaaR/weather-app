@@ -1,76 +1,61 @@
 import { useEffect, useState } from "react";
 import Box from "./components/Box";
-import { Icon } from "@iconify/react";
-import arrowUpFill from "@iconify/icons-mingcute/arrow-up-fill";
+import Header from "./components/Header";
+import Summary from "./components/Summary";
 import "./App.css";
 
 function App() {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [isSunny, setIsSunny] = useState(false);
-	const getCardinalDirection = (degree) => {
-		const directions = [
-			"north",
-			"north east",
-			"east",
-			"south east",
-			"south",
-			"south west",
-			"west",
-			"north west",
-		];
-
-		// Ensure the degree is positive and within the range [0, 360)
-		const normalizedDegree = ((degree % 360) + 360) % 360;
-
-		// Calculate the index into the directions array
-		const index = Math.floor((normalizedDegree + 22.5) / 45);
-
-		return directions[index];
-	};
 
 	async function fetchData() {
 		try {
+			let latitude, longitude;
+
 			const position = await new Promise((resolve, reject) => {
-				navigator.geolocation.getCurrentPosition(resolve, reject);
+				navigator.geolocation.getCurrentPosition(resolve, reject, {
+					timeout: 30000, // 10 seconds timeout
+				});
 			});
 
-			const { latitude, longitude } = position.coords;
-			const apiKey = "70fad9c302c80c4cc388150f0be6cdf0";
+			localStorage.setItem("locationPermissionAsked", "true");
+
+			latitude = position.coords.latitude;
+			longitude = position.coords.longitude;
+
+			const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 			const response = await fetch(
 				`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`
 			);
+
+			if (!response.ok) {
+				throw new Error("Failed to fetch weather data");
+			}
+
 			const data = await response.json();
+			console.log(data);
 			setData(data);
 		} catch (error) {
-			setError(error);
+			setError(error.message);
 		}
 	}
 
-	// async function fetchPlaceImg() {
-	// 	const position = await new Promise((resolve, reject) => {
-	// 		navigator.geolocation.getCurrentPosition(resolve, reject);
-	// 	});
-
-	// 	const { latitude, longitude } = position.coords;
-	// }
-
 	useEffect(() => {
-		fetchData();
 		setIsSunny(isDaytime());
-
+		fetchData();
 		const interval = setInterval(() => {
 			setIsSunny(isDaytime());
-		}, 60000);
+			fetchData();
+		}, 120000);
 
 		return () => clearInterval(interval);
 	}, []);
 
-	// Function to check if it's daytime
 	const isDaytime = () => {
 		const currentTime = new Date();
 		const currentHour = currentTime.getHours();
-		return currentHour >= 9 && currentHour < 17;
+		return currentHour >= 9 && currentHour < 23;
 	};
 
 	const locationBasedUnit = (celcius) => {
@@ -81,8 +66,7 @@ function App() {
 		}
 	};
 
-	const daytimeGradient =
-		"linear-gradient(180deg, #E3F2FF 0%, #42A4FF 17.19%, #8EB581 74.48%, #65AE4B 100%)";
+	const daytimeGradient = "linear-gradient(180deg, #C5E3FF 0%, #428EFF 89.58%)";
 	const nighttimeGradient =
 		"linear-gradient(180deg, #0A023D 0%, #2825A8 33.33%, #2825A8 72.61%, #01020E 100%)";
 
@@ -94,33 +78,35 @@ function App() {
 		margin: "0 auto",
 	};
 
-	const color = {
-		color: isSunny ? "#1a1a1a" : "#c9c9c9",
+	const colour = {
+		colour: isSunny ? "#1a1a1a" : "#c9c9c9",
 	};
 
 	return (
-		<>
-			{data ? (
-				<div style={backgroundStyle}>
-					<div className="flex">
-						<h2 style={color}>{data.name}</h2>
-						<h1 style={color}>
-							{locationBasedUnit(Math.round(data.main.temp))}
-						</h1>
-						<Box data={data} color={color} />
-					</div>
-				</div>
-			) : (
-				<div style={backgroundStyle}>
-					<div className="flex">
+		<div style={backgroundStyle}>
+			<div className="flex">
+				{error && (
+					<div className="error">Error: {error}, please refresh the page</div>
+				)}
+				{data ? (
+					<>
+						<Header
+							name={data.name}
+							temp={locationBasedUnit(Math.round(data.main.temp))}
+							isSunny={isSunny}
+						/>
+						<Box data={data} colour={colour} />
+					</>
+				) : (
+					<>
 						<h2 className="h2-placeholder"></h2>
 						<h1 className="h1-placeholder"></h1>
-
 						<Box />
-					</div>
-				</div>
-			)}
-		</>
+					</>
+				)}
+				<Summary className="summary-left" data={data} colour={colour} />
+			</div>
+		</div>
 	);
 }
 

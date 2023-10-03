@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 
 const Box = (props) => {
 	return (
@@ -8,23 +7,23 @@ const Box = (props) => {
 				<div className="box">
 					<div className="boxItem">
 						<img src="/icons/ph_wind.svg" alt="wind icon" />
-						<h2 style={props.color}>{Math.round(props.data.wind.speed)} m/s</h2>
-						<h3 style={props.color}>Wind</h3>
+						<h3 style={props.color}>{Math.round(props.data.wind.speed)} m/s</h3>
+						<h4 style={props.color}>Wind</h4>
 					</div>
 					<div className="boxItem">
 						<img src="/icons/iwwa_humidity.svg" alt="humidity icon" />
-						<h2 style={props.color}>
+						<h3 style={props.color}>
 							{Math.round(props.data.main.humidity)} %
-						</h2>
-						<h3 style={props.color}>Humidity</h3>
+						</h3>
+						<h4 style={props.color}>Humidity</h4>
 					</div>
 					<div className="boxItem">
 						<img
 							src="/icons/material-symbols_visibility-outline.svg"
 							alt="wind icon"
 						/>
-						<h2 style={props.color}>{props.data.visibility / 1000} km</h2>
-						<h3 style={props.color}>Visibility</h3>
+						<h3 style={props.color}>{props.data.visibility / 1000} km</h3>
+						<h4 style={props.color}>Visibility</h4>
 					</div>
 
 					{/* <div className="flex humid">
@@ -61,4 +60,4 @@ const Box = (props) => {
 	);
 };
 
-export default Box;
+export default React.memo(Box);
