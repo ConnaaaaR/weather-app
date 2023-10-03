@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = ({ name, temp, isSunny }) => {
 	const colour = {
-		colour: isSunny ? "#1a1a1a" : "#c9c9c9",
+		color: isSunny ? "#1a1a1a" : "#c9c9c9",
 	};
 
 	return (

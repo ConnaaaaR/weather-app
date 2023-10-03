@@ -43,6 +43,7 @@ function App() {
 	useEffect(() => {
 		setIsSunny(isDaytime());
 		fetchData();
+		console.log(isSunny);
 		const interval = setInterval(() => {
 			setIsSunny(isDaytime());
 			fetchData();
@@ -54,7 +55,7 @@ function App() {
 	const isDaytime = () => {
 		const currentTime = new Date();
 		const currentHour = currentTime.getHours();
-		return currentHour >= 8 && currentHour < 18;
+		return currentHour >= 8 && currentHour < 23;
 	};
 
 	const locationBasedUnit = (celcius) => {
@@ -85,7 +86,9 @@ function App() {
 		<div style={backgroundStyle}>
 			<div className="flex">
 				{error && (
-					<div className="error">Error: {error}, please refresh the page</div>
+					<div className="error">
+						Error: {error}, please refresh the page or try again later
+					</div>
 				)}
 				{data ? (
 					<>
@@ -94,7 +97,12 @@ function App() {
 							temp={locationBasedUnit(Math.round(data.main.temp))}
 							isSunny={isSunny}
 						/>
-						<Box data={data} colour={colour} />
+						<Box
+							vis={data.visibility / 1000}
+							wind={Math.round(data.wind.speed)}
+							hum={Math.round(data.main.humidity)}
+							isSunny={isSunny}
+						/>
 					</>
 				) : (
 					<>
@@ -103,7 +111,7 @@ function App() {
 						<Box />
 					</>
 				)}
-				<Summary className="summary-left" data={data} colour={colour} />
+				<Summary className="summary-left" data={data} isSunny={isSunny} />
 			</div>
 		</div>
 	);

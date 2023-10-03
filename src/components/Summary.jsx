@@ -10,14 +10,14 @@ const Summary = ({ isSunny, data }) => {
 	};
 
 	const colour = {
-		color: isSunny ? "#c9c9c9" : "#1a1a1a",
+		color: isSunny ? "#1a1a1a" : "#c9c9c9",
 	};
 	return (
 		<>
 			{data ? (
 				<>
 					<h5 style={colour}>Summary</h5>
-					<p>
+					<p style={colour}>
 						It currently is {data.weather[0].description} and feels like
 						{" " + Math.round(locationBasedUnit(data.main.feels_like))}°. Todays
 						high is
@@ -25,7 +25,7 @@ const Summary = ({ isSunny, data }) => {
 						low of
 						{" " + Math.round(locationBasedUnit(data.main.temp_min))}°.
 					</p>
-					<p>
+					<p style={colour}>
 						Winds of {Math.round(data.wind.speed)} m/s with gusts of up to{" "}
 						{Math.round(data.wind.gust)} m/s.
 					</p>
