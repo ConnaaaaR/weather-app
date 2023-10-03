@@ -8,21 +8,23 @@ const Box = (props) => {
 				<div className="box">
 					<div className="boxItem">
 						<img src="/icons/ph_wind.svg" alt="wind icon" />
-						<h2>{Math.round(props.data.wind.speed)} m/s</h2>
-						<h3>Wind</h3>
+						<h2 style={props.color}>{Math.round(props.data.wind.speed)} m/s</h2>
+						<h3 style={props.color}>Wind</h3>
 					</div>
 					<div className="boxItem">
 						<img src="/icons/iwwa_humidity.svg" alt="humidity icon" />
-						<h2>{Math.round(props.data.main.humidity)} %</h2>
-						<h3>Humidity</h3>
+						<h2 style={props.color}>
+							{Math.round(props.data.main.humidity)} %
+						</h2>
+						<h3 style={props.color}>Humidity</h3>
 					</div>
 					<div className="boxItem">
 						<img
 							src="/icons/material-symbols_visibility-outline.svg"
 							alt="wind icon"
 						/>
-						<h2>{props.data.visibility / 1000} km</h2>
-						<h3>Visibility</h3>
+						<h2 style={props.color}>{props.data.visibility / 1000} km</h2>
+						<h3 style={props.color}>Visibility</h3>
 					</div>
 
 					{/* <div className="flex humid">

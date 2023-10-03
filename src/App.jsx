@@ -94,19 +94,25 @@ function App() {
 		margin: "0 auto",
 	};
 
+	const color = {
+		color: isSunny ? "#1a1a1a" : "#c9c9c9",
+	};
+
 	return (
 		<>
 			{data ? (
 				<div style={backgroundStyle}>
 					<div className="flex">
-						<h2>{data.name}</h2>
-						<h1>{locationBasedUnit(Math.round(data.main.temp))}</h1>
-						<Box data={data} />
-						<h5>
+						<h2 style={color}>{data.name}</h2>
+						<h1 style={color}>
+							{locationBasedUnit(Math.round(data.main.temp))}
+						</h1>
+						<Box data={data} color={color} />
+						<h5 style={color}>
 							Feels like {locationBasedUnit(Math.floor(data.main.feels_like))}
 						</h5>
 
-						<h3>{data.weather[0].description}</h3>
+						<h3 style={color}>{data.weather[0].description}</h3>
 					</div>
 				</div>
 			) : (
