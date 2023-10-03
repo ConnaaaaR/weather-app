@@ -16,19 +16,21 @@ const Summary = ({ isSunny, data }) => {
 		<>
 			{data ? (
 				<>
-					<h5 style={colour}>Summary</h5>
-					<p style={colour}>
-						It currently is {data.weather[0].description} and feels like
-						{" " + Math.round(locationBasedUnit(data.main.feels_like))}°. Todays
-						high is
-						{" " + Math.round(locationBasedUnit(data.main.temp_max))}° with a
-						low of
-						{" " + Math.round(locationBasedUnit(data.main.temp_min))}°.
-					</p>
-					<p style={colour}>
-						Winds of {Math.round(data.wind.speed)} m/s with gusts of up to{" "}
-						{Math.round(data.wind.gust)} m/s.
-					</p>
+					<div className="summaryBox">
+						<h5 style={colour}>Summary</h5>
+						<p style={colour}>
+							It currently is {data.weather[0].description} and feels like
+							{" " + Math.round(locationBasedUnit(data.main.feels_like))}°.
+							Todays high is
+							{" " + Math.round(locationBasedUnit(data.main.temp_max))}° with a
+							low of
+							{" " + Math.round(locationBasedUnit(data.main.temp_min))}°.
+						</p>
+						<p style={colour}>
+							Winds of {Math.round(data.wind.speed)} m/s with gusts of up to{" "}
+							{Math.round(data.wind.gust)} m/s.
+						</p>
+					</div>
 				</>
 			) : (
 				""

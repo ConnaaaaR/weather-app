@@ -49,7 +49,6 @@ h4 {
 h5 {
 	align-self: flex-start;
 	text-align: left;
-	margin-left: -25px;
 	margin-top: 2rem;
 	font-family: Lexend-Deca;
 	font-size: 1rem;
@@ -59,7 +58,6 @@ h5 {
 }
 
 p {
-	margin: 0 -25px;
 	font-family: Lexend-Deca;
 	font-size: 0.9rem;
 	font-style: normal;
@@ -94,6 +92,13 @@ p {
 	gap: 3.25rem;
 	border-radius: 0.625rem;
 	background: rgba(210, 209, 209, 0.2);
+}
+
+.summaryBox {
+	display: flex;
+	gap: 0.8rem;
+	flex-direction: column;
+	align-self: center;
 }
 
 .boxItem {
