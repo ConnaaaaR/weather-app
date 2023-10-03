@@ -15,7 +15,7 @@ function App() {
 
 			const position = await new Promise((resolve, reject) => {
 				navigator.geolocation.getCurrentPosition(resolve, reject, {
-					timeout: 30000, // 10 seconds timeout
+					timeout: 30000, // 30 seconds timeout
 				});
 			});
 
@@ -34,7 +34,6 @@ function App() {
 			}
 
 			const data = await response.json();
-			console.log(data);
 			setData(data);
 		} catch (error) {
 			setError(error.message);
@@ -55,7 +54,7 @@ function App() {
 	const isDaytime = () => {
 		const currentTime = new Date();
 		const currentHour = currentTime.getHours();
-		return currentHour >= 9 && currentHour < 23;
+		return currentHour >= 8 && currentHour < 18;
 	};
 
 	const locationBasedUnit = (celcius) => {
