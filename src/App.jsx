@@ -82,9 +82,9 @@ function App() {
 	};
 
 	const daytimeGradient =
-		"linear-gradient(45deg, rgba(114,192,223,1) 78%, rgba(255,233,107,1) 100%)";
+		"linear-gradient(180deg, #E3F2FF 0%, #42A4FF 17.19%, #8EB581 74.48%, #65AE4B 100%)";
 	const nighttimeGradient =
-		"linear-gradient(135deg, #FFC3A0, #FFECB3, #C3A0FF)";
+		"linear-gradient(180deg, #0A023D 0%, #2825A8 33.33%, #2825A8 72.61%, #01020E 100%)";
 
 	const backgroundStyle = {
 		background: isSunny ? daytimeGradient : nighttimeGradient,
@@ -98,42 +98,26 @@ function App() {
 		<>
 			{data ? (
 				<div style={backgroundStyle}>
-					<img
-						src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-						alt={data.weather[0].description}
-					/>
-					<h2>{data.name}</h2>
-					<h1>{locationBasedUnit(Math.round(data.main.temp))}°</h1>
-					<h5>
-						Feels like {locationBasedUnit(Math.floor(data.main.feels_like))}°
-					</h5>
-
-					<h3>{data.weather[0].description}</h3>
 					<div className="flex">
-						<Box>
-							<div style={{ transform: `rotate(${data.wind.deg + 180}deg)` }}>
-								<Icon icon={arrowUpFill} width="50%" />
-							</div>
-							<div className="smallText">
-								{`${getCardinalDirection(data.wind.deg)} at
-            ${Math.round(data.wind.speed)} m/s`}
-							</div>
-						</Box>
-						<Box>
-							<div className="flex humid">
-								<h2>{`${data.main.humidity}%`}</h2>
-								<div className="smallText">Humidity</div>
-							</div>
-						</Box>
-						<Box>
-							<div className="flex humid">
-								<h2>{`${data.main.pressure} \n hPa`}</h2>
-							</div>
-						</Box>
+						<h2>{data.name}</h2>
+						<h1>{locationBasedUnit(Math.round(data.main.temp))}</h1>
+						<Box data={data} />
+						<h5>
+							Feels like {locationBasedUnit(Math.floor(data.main.feels_like))}
+						</h5>
+
+						<h3>{data.weather[0].description}</h3>
 					</div>
 				</div>
 			) : (
-				<h5 style={backgroundStyle}>Data Loading...</h5>
+				<div style={backgroundStyle}>
+					<div className="flex">
+						<h2 className="h2-placeholder"></h2>
+						<h1 className="h1-placeholder"></h1>
+
+						<Box />
+					</div>
+				</div>
 			)}
 		</>
 	);

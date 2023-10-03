@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Lexend-Deca';
+    src: url('./fonts/LexendDeca-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* The range of weight your font supports */
+    font-style: normal; /* or italic if your font supports it */
+  }
+  
+  @font-face {
+    font-family: 'Lexend-Zetta';
+    src: url('./fonts/LexendZetta-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900; /* The range of weight your font supports */
+    font-style: normal; /* or italic if your font supports it */
+  }
+  
