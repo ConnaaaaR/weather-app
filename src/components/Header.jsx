@@ -8,7 +8,7 @@ const Header = ({ name, temp, isSunny }) => {
 	return (
 		<>
 			<h2 style={colour}>{name}</h2>
-			<h1 style={colour}>{temp}</h1>
+			<h1 style={colour}>{temp}°</h1>
 		</>
 	);
 };

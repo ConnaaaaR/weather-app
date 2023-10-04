@@ -78,10 +78,6 @@ function App() {
 		margin: "0 auto",
 	};
 
-	const colour = {
-		colour: isSunny ? "#1a1a1a" : "#c9c9c9",
-	};
-
 	return (
 		<div style={backgroundStyle}>
 			<div className="flex">
