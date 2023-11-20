@@ -67,6 +67,7 @@ p {
 }
 
 .error {
+	align-self: center;
 	color: #c77b7b;
 	font-family: "Lexend-Zetta";
 	text-align: center;
