@@ -24,7 +24,7 @@ This React-based weather application provides real-time weather updates based on
    - Add your OpenWeather API key to the `.env` file as `VITE_WEATHER_API_KEY=[Your API Key Here]`.
 
 ## Running the Application
-- In the project directory, run `npm start` to start the application.
+- In the project directory, run `npm run dev` to start the application.
 - The app will run in development mode and will be available at `http://localhost:3000`.
 
 ## Features
