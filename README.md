@@ -1,7 +1,11 @@
+![Weather App Screenshot](/public/ScreenShot.png)
+
 # React Weather App
 
 ## Overview
 This React-based weather application provides real-time weather updates based on the user's location. It utilizes the OpenWeather API to fetch weather data.
+
+
 
 ## Prerequisites
 - Node.js
