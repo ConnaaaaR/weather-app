@@ -1,4 +1,4 @@
-![Weather App Screenshot](/public/ScreenShot.png)
+
 
 # React Weather App
 
@@ -35,3 +35,7 @@ This React-based weather application provides real-time weather updates based on
 
 ## Error Handling
 - If an error occurs while fetching weather data, the app will display an error message. Please refresh the page or try again later.
+
+
+## Image of App
+![Weather App Screenshot](/public/ScreenShot.png)
