@@ -14,7 +14,7 @@ This React-based weather application provides real-time weather updates based on
 
 ## Installation and Setup
 1. **Clone the repository**
-   - Use `git clone [repository-url]` to clone the project to your local machine.
+   - Use `git clone https://github.com/ConnaaaaR/weather-app` to clone the project to your local machine.
 
 2. **Install dependencies**
    - Navigate to the project directory in your terminal and run `npm install` to install the necessary dependencies.
